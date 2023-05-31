@@ -14,6 +14,13 @@ function App() {
           <Post />
         </main>
       } />
+
+      <Route path={'/login'} element={
+        <main>
+        <div>Login page</div>
+      </main>
+      }/>
+
     </Routes>
   );
 }
