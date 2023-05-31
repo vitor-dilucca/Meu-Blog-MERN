@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken')
 const salt = bcrypt.genSaltSync(10)
 const secret = 'çlknqmçklqwue3223525'
 
-app.use(cors())
+app.use(cors({credentials:true,origin:'http://localhost:3000'}))
 app.use(express.json())
 
 mongoose.connect('mongodb+srv://blog:D3cSJt5CHFjuPfkJ@cluster0.zbpaovy.mongodb.net/?retryWrites=true&w=majority')
@@ -35,7 +35,7 @@ app.post('/login', async (req, res) => {
   if(passOk){
     jwt.sign({username,id:userDoc._id}, secret,{},(err,token)=>{
       if(err) throw err
-      res.json(token)
+      res.cookie('token', token).json('ok')
     })
   }else{
     res.status(400).json('wrong credentials')
