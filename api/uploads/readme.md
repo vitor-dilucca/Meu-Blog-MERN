@@ -1,0 +1,1 @@
+aqui é onde vão ser armazenadas as imagens que forem subidas ao server ao criar um novo post, caso uma imagem for enviada.
