@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react'
 import { UserContext } from "./UserContext"
 
 export default function Header() {
-  const {setUserInfo,userInfo} = useContext(UserContext)
+  const { setUserInfo, userInfo } = useContext(UserContext)
   useEffect(() => {
     fetch('http://localhost:4000/profile', {
       credentials: 'include'
@@ -14,10 +14,10 @@ export default function Header() {
     })
   }, [])
 
-  function logout(){
-    fetch('http://localhost:4000/logout',{
-      credentials:'include',
-      method:'POST'
+  function logout() {
+    fetch('http://localhost:4000/logout', {
+      credentials: 'include',
+      method: 'POST'
     })
     setUserInfo(null)
   }
