@@ -3,7 +3,7 @@ export default function Post({title,summary,cover,content,createdAt,author}){
   return(
     <div className="post">
         <div className="image">
-          <img src="https://integralismo.org.br/wp-content/uploads/2022/09/Independencia-ou-morte-integralismo-768x411.jpeg" alt="" />
+          <img src={'http://localhost:4000/'+cover} alt="" />
         </div>
         <div className="texts">
           <h2>{title}</h2>
