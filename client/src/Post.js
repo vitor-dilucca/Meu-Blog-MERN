@@ -1,16 +1,17 @@
-export default function Post(){
+import {format} from "date-fns"
+export default function Post({title,summary,cover,content,createdAt,author}){
   return(
     <div className="post">
         <div className="image">
           <img src="https://integralismo.org.br/wp-content/uploads/2022/09/Independencia-ou-morte-integralismo-768x411.jpeg" alt="" />
         </div>
         <div className="texts">
-          <h2>A verdadeira história da Independência</h2>
+          <h2>{title}</h2>
           <p className="info">
-            <a href="" className="author">Dawid Paszko</a>
-            <time>2023-01-06 16:45</time>
+            <a href="" className="author">{author.username}</a>
+            <time>{format(new Date(createdAt),'d MMM, yyyy HH:mm')}</time>
           </p>
-          <p className="summary">A Independência foi o resultado de séculos de história de uma nação, e foi conquistada pelo povo</p>
+          <p className="summary">{summary}</p>
         </div>
       </div>
   )
