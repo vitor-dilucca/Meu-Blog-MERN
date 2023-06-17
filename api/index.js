@@ -19,7 +19,16 @@ app.use(express.json())
 app.use(cookieParser())
 app.use('/uploads', express.static(__dirname + '/uploads'))
 
-mongoose.connect('mongodb+srv://blog:D3cSJt5CHFjuPfkJ@cluster0.zbpaovy.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://blog:D3cSJt5CHFjuPfkJ@cluster0.zbpaovy.mongodb.net/?retryWrites=true&w=majority',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    writeConcern: {
+      w: 'majority',
+      wtimeout: 1000,
+      j: true
+    }
+  })
 
 app.post('/register', async (req, res) => {
   const { username, password } = req.body
@@ -57,6 +66,7 @@ app.get('/profile', (req, res) => {
   const { token } = req.cookies
   jwt.verify(token, secret, {}, (err, info) => {
     if (err) throw err
+    console.log(err)
     res.json(info)
   })
 })
@@ -104,7 +114,7 @@ app.put('/post', uploadMiddleware.single('file'), async (req, res) => {
     const { id, title, summary, content } = req.body
     const postDoc = await Post.findById(id)
     const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(info.id)
-    if(!isAuthor) {
+    if (!isAuthor) {
       return res.status(400).json('you are not the author of this post')
     }
     postDoc.title = title;

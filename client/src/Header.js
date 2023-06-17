@@ -7,12 +7,21 @@ export default function Header() {
   useEffect(() => {
     fetch('http://localhost:4000/profile', {
       credentials: 'include'
-    }).then(response => {
-      response.json().then(userInfo => {
-        setUserInfo(userInfo)
-      })
     })
-  }, [])
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(userInfo => {
+      setUserInfo(userInfo);
+    })
+    .catch(error => {
+      console.error('Error fetching profile:', error);
+      setUserInfo(null);
+    });
+  }, []);
 
   function logout() {
     fetch('http://localhost:4000/logout', {
